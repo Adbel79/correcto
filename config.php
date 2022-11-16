@@ -5,11 +5,12 @@ define('DB_SERVER', 'tamales.cvp0bpkbyxsj.us-east-1.rds.amazonaws.com');
 define('DB_USERNAME', 'admin');
 define('DB_PASSWORD', 'ADBELrene8');
 define('DB_NAME', 'tamales');
+define('PORT', '3306');
  
 
 
 /*attempt to connect to MySQL database */
-$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$mysqli = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME, PORT);
  
 // Check connection
 if($mysqli ->connect_errno){
