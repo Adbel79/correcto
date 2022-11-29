@@ -3,8 +3,8 @@
 require_once 'config.php';
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $usertype = "";
-$username_err = $password_err = $confirm_password_err = $usertype_err = "";
+$username = $password = $confirm_password = $usertype = $departamento = $nombre_completo =  "";
+$username_err = $password_err = $confirm_password_err = $usertype_err = $departamento_err = $nombre_completo_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Por favor introduce un usuario.";
     } else{
         // preparar la sentencia
-        $sql = "SELECT id FROM users WHERE username = ?";
+        $sql = "SELECT id FROM usuarios WHERE username = ?";
         
         if($stmt = mysqli_prepare($mysqli, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -60,6 +60,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = 'Las contraseñas no coinciden .';
         }
     }
+
+
+        // Validate departamento
+        if(empty(trim($_POST["departamento"]))){
+            $departamento_err = 'Por favor introduce un departamento.';     
+        } else{
+            $departamento = trim($_POST['departamento']);
+        }
+
+
+                // Validate fullname
+        if(empty(trim($_POST["nombre_completo"]))){
+            $nombre_completo_err = 'Por favor introduce un nombre completo.';     
+        } else{
+            $nombre_completo = trim($_POST['nombre_completo']);
+        }
     
     //
      // Validate usertype
@@ -74,19 +90,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($usertype_err) ){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($usertype_err) && empty($departamento_err) && empty($nombre_completo_err) ){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password, tipo_usuario) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO usuarios (username, password, tipo_usuario, departamento, nombre_completo) VALUES (?, ?, ?, ?, ?)";
          
         if($stmt = mysqli_prepare($mysqli, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_usertype);
+            mysqli_stmt_bind_param($stmt, "sssss", $param_username, $param_password, $param_usertype, $param_departamento, $param_nombre_completo);
             
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); 
             $param_usertype = $usertype;
+            $param_departamento = $departamento;
+            $param_nombre_completo = $nombre_completo;
             // Creates a password hash
             
             // Attempt to execute the prepared statement
@@ -123,6 +141,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2>Registro</h2>
         <p>Llena los datos para poder acceder.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
+        <div class="form-group <?php echo (!empty($nombre_completo_err)) ? 'has-error' : ''; ?>">
+                <label>Nombre completo</label>
+                <input type="text" name="nombre_completo"class="form-control" value="<?php echo $nombre_completo; ?>">
+                <span class="help-block"><?php echo $nombre_completo_err; ?></span>
+            </div> 
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Nombre de usuario</label>
                 <input type="text" name="username"class="form-control" value="<?php echo $username; ?>">
@@ -137,6 +161,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label>Confirmar contraseña</label>
                 <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
                 <span class="help-block"><?php echo $confirm_password_err; ?></span>
+            </div>
+            <div class="form-group <?php echo (!empty($departamento_err)) ? 'has-error' : ''; ?>">
+                <label>Departamento: </label>
+                <input type="text" name="departamento" class="form-control" value="<?php echo $departamento; ?>">
+                <span class="help-block"><?php echo $departamento_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($usertype_err)) ? 'has-error' : ''; ?>">
                 <label>tipo de usuario(1 o 2) </label>
