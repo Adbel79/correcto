@@ -1,10 +1,10 @@
 <?php
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'pruebas');
+define('DB_SERVER', 'pruebas1.cvp0bpkbyxsj.us-east-1.rds.amazonaws.com');
+define('DB_USERNAME', 'admin');
+define('DB_PASSWORD', 'ADBELrene8');
+define('DB_NAME', 'sys');
 define('PORT', '3306');
  
 
