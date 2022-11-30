@@ -1,5 +1,5 @@
 <?php
-$db = new PDO('mysql:host=127.0.0.1; dbname=pruebas','root','');
+$db = new PDO('mysql:host=pruebas1.cvp0bpkbyxsj.us-east-1.rds.amazonaws.com; dbname=sys','admin','ADBELrene8');
 if(isset($_POST['username'])){
     $username = $_POST['username'];
     $password = trim($_POST['password']);
