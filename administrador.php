@@ -31,6 +31,6 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
     <div class="page-header">
         <h1>Hola, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b>. Bienvenido a tu sitio, administrador. Tu usuario es de tipo <b><?php echo htmlspecialchars($_SESSION['usertype']); ?></b></h1>
     </div>
-    <p><a href="https://6f56-148-226-28-247.ngrok.io/login.html.php" class="btn btn-success">Ir a los tamales</a></p>
+    <p><a href="https://6655-200-68-169-2.ngrok.io/login.html.php" class="btn btn-success">Ir a los tamales</a></p>
 </body>
 </html>
