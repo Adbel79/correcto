@@ -59,7 +59,7 @@ if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
                     require_once 'config.php';
                     
                     // Attempt select query execution
-                    $sql = "SELECT * FROM tamales";
+                    $sql = "SELECT * FROM ejemplo2";
                     if($result = mysqli_query($mysqli, $sql)){
                         if(mysqli_num_rows($result) > 0){
                             echo "<table class='table table-bordered table-striped'>";
